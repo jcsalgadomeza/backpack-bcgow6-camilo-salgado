@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nombre": "Camilo",
+        "color": "rojo",
+        "precio": 321.00,
+        "stock": true,
+        "código": "AAA9",
+        "publicado": "no", 
+        "fecha_creación": "10-07-2022"
+    },
+    {
+        "id": 2,
+        "nombre": "Juan",
+        "color": "azul",
+        "precio": 123.00,
+        "stock": true,
+        "código": "A3D2",
+        "publicado": "si", 
+        "fecha_creación": "03-10-2022"
+    },
+    {
+        "id": 3,
+        "nombre": "David",
+        "color": "verde",
+        "precio": 593.00,
+        "stock": false,
+        "código": "QQD2",
+        "publicado": "no", 
+        "fecha_creación": "03-09-2022"
+    }
+]
