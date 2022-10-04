@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -26,6 +25,14 @@ eso se deben seguir los siguientes pasos:
  2. En caso que algún campo no esté completo se debe retornar un código de error 400
     con el mensaje “el campo %s es requerido”.
     (En %s debe ir el nombre del campo que no está completo).
+
+Ejercicio 3:
+Para agregar seguridad a la aplicación se debe enviar la petición con un token, para eso se
+deben seguir los siguientes pasos::
+ 1. Al momento de enviar la petición se debe validar que un token sea enviado
+ 2. Se debe validar ese token en nuestro código (el token puede estar hardcodeado).
+ 3. En caso que el token enviado no sea correcto debemos retornar un error 401 y un
+    mensaje que “no tiene permisos para realizar la petición solicitada”.
 */
 type entidad struct {
 	Id       int     `json:"id" binding:"required"`
@@ -58,19 +65,23 @@ func Ping() gin.HandlerFunc {
 }
 func Guardar() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		token := ctx.GetHeader("token")
+		if token != "123456" {
+			ctx.JSON(401, gin.H{
+				"error": "No tiene permisos para realizar la petición solicitada",
+			})
+			return
+		}
 		var req entidad
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			ctx.JSON(400, gin.H{
-				"err": err.Error(),
+				"error": err.Error(),
 			})
+			return
 		}
 		lastId++
 		req.Id = lastId
 		entidades = append(entidades, req)
-		for i, j := range entidades {
-			fmt.Println(i, j)
-			fmt.Println("Campo: ", )
-		}
 		ctx.JSON(200, req)
 	}
 }
