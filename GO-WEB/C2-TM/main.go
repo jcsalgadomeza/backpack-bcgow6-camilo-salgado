@@ -57,7 +57,7 @@ func Guardar() gin.HandlerFunc {
 				ctx.JSON(400, gin.H{"error": "El campo cantidad es requerido"})
 				return
 			}
-			if req.Precio == 0.0 {
+			if req.Precio == 0 {
 				ctx.JSON(400, gin.H{"error": "El campo precio es requerido"})
 				return
 			}
